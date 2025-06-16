@@ -1,0 +1,7 @@
+*.json
+*.md
+*.yaml
+*.yml
+public/
+.next/
+node_modules/

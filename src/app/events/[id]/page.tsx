@@ -1,7 +1,8 @@
 'use client'
 import { EmotionType } from '@/types/emotion';
-import { motion } from 'framer-motion';
 import CountdownTimer from '@/components/events/CountdownTimer';
+import { motion } from 'framer-motion';
+
 
 const emotionColors: Record<EmotionType, string> = {
     joy: 'bg-yellow-400',
@@ -26,6 +27,7 @@ const emotionIcons: Record<EmotionType, string> = {
 };
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
+    console.log(params.id);
     // في الواقع، سنجلب بيانات الحدث من قاعدة البيانات باستخدام الـ id
     const event = {
         id: '1',
@@ -66,6 +68,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                     <div className="bg-purple-50 p-4 rounded-xl">
                         <div className="text-gray-500">الوقت المتبقي</div>
+                        <CountdownTimer targetDate={event.startTime} />
                         <div className="font-bold text-xl">
                             {Math.floor((event.startTime.getTime() - Date.now()) / (1000 * 60 * 60))} ساعة
                         </div>

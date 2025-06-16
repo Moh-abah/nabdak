@@ -6,7 +6,8 @@ import L from 'leaflet';
 import { EmotionType } from '@/types/emotion';
 
 // حل مشكلة أيقونات leaflet في Next.js
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+;
+delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: '/markers/marker-icon-2x.png',
     iconUrl: '/markers/marker-icon.png',

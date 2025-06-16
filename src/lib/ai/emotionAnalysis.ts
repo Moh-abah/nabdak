@@ -14,7 +14,7 @@ export const analyzeSentiment = (text: string) => {
 };
 
 // خدمة توليد نصائح بناءً على المشاعر
-export const generateInsight = (emotion: string, sentimentScore: number) => {
+export const generateInsight = (emotion: string  ) => {
     const insights: Record<string, string[]> = {
         joy: [
             'استمر في فعل ما يجعلك سعيدًا!',
@@ -59,7 +59,7 @@ export const generateInsight = (emotion: string, sentimentScore: number) => {
 };
 
 // خدمة تحويل الصوت إلى نص (محاكاة)
-export const transcribeAudio = async (audioBlob: Blob): Promise<string> => {
+export const transcribeAudio = async (): Promise<string> => {
     // في الواقع، سنستخدم هنا خدمة مثل Google Speech-to-Text
     // هذه محاكاة تعيد نصوصًا عشوائية
     const transcriptions: Record<string, string[]> = {
