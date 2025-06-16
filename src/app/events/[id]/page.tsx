@@ -2,6 +2,7 @@
 import { EmotionType } from '@/types/emotion';
 import CountdownTimer from '@/components/events/CountdownTimer';
 import { motion } from 'framer-motion';
+import { useParams } from 'next/navigation'; // أضف هذا الاستيراد
 
 
 interface EventDetailPageProps {
@@ -32,7 +33,10 @@ const emotionIcons: Record<EmotionType, string> = {
     loneliness: '👤',
 };
 
-export default function EventDetailPage({ params }: EventDetailPageProps) {
+export default function EventDetailPage() {
+
+    const params = useParams();
+    const eventId = params.id as string;
     console.log(params.id);
     // في الواقع، سنجلب بيانات الحدث من قاعدة البيانات باستخدام الـ id
     const event = {
