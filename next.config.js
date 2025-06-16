@@ -1,8 +1,5 @@
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true, // أضف هذا السطر
-  },
   experimental: {
     appDir: true,
     serverComponentsExternalPackages: ['@prisma/client', 'ffmpeg'],
@@ -13,6 +10,9 @@ const nextConfig = {
       type: 'asset/resource',
     });
     return config;
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
