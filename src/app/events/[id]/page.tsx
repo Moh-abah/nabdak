@@ -4,6 +4,12 @@ import CountdownTimer from '@/components/events/CountdownTimer';
 import { motion } from 'framer-motion';
 
 
+interface EventDetailPageProps {
+    params: {
+        id: string;
+    };
+}
+  
 const emotionColors: Record<EmotionType, string> = {
     joy: 'bg-yellow-400',
     sadness: 'bg-blue-400',
@@ -26,7 +32,7 @@ const emotionIcons: Record<EmotionType, string> = {
     loneliness: '👤',
 };
 
-export default function EventDetailPage({ params }: { params: { id: string } }) {
+export default function EventDetailPage({ params }: EventDetailPageProps) {
     console.log(params.id);
     // في الواقع، سنجلب بيانات الحدث من قاعدة البيانات باستخدام الـ id
     const event = {
