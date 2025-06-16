@@ -1,13 +1,25 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { EmotionType } from '@/types/emotion';
 
 // حل مشكلة أيقونات leaflet في Next.js
-;
-delete L.Icon.Default.prototype._getIconUrl;
+
+const defaultIcon = L.icon({
+    iconUrl: '/markers/marker-icon.png',
+    iconRetinaUrl: '/markers/marker-icon-2x.png',
+    shadowUrl: '/markers/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize: [41, 41]
+});
+
+L.Marker.prototype.options.icon = defaultIcon;
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: '/markers/marker-icon-2x.png',
     iconUrl: '/markers/marker-icon.png',
@@ -39,6 +51,28 @@ interface LiveEmotionMapProps {
 }
 
 export default function LiveEmotionMap({ emotions }: LiveEmotionMapProps) {
+    const [isClient, setIsClient] = useState(false); // تعريف isClient هنا
+
+    useEffect(() => {
+        setIsClient(true);
+
+        // حل مشكلة أيقونات leaflet
+        try {
+            delete (L.Icon.Default.prototype as any)._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: '/markers/marker-icon-2x.png',
+                iconUrl: '/markers/marker-icon.png',
+                shadowUrl: '/markers/marker-shadow.png',
+            });
+        } catch (e) {
+            console.error('Failed to fix Leaflet icons', e);
+        }
+    }, []);
+
+    if (!isClient) {
+        return <div className="h-[500px] bg-gray-200 rounded-xl animate-pulse"></div>;
+    }
+    
     return (
         <MapContainer
             center={[24.7136, 46.6753]}
@@ -80,4 +114,8 @@ export default function LiveEmotionMap({ emotions }: LiveEmotionMapProps) {
             })}
         </MapContainer>
     );
+}
+
+function setIsClient(arg0: boolean) {
+    throw new Error('Function not implemented.');
 }

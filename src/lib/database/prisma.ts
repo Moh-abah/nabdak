@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+// src/lib/database/prisma.ts
+import { PrismaClient } from '@prisma/client/edge'; // استخدم هذا بدلاً من '@prisma/client'
 
 declare global {
     var prisma: PrismaClient | undefined;

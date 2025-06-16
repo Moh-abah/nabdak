@@ -36,20 +36,20 @@ export default function RecordEmotionPage() {
         try {
             // 1. تحويل الصوت إلى نص
             const transcript = await transcribeAudio(audioBlob);
-
+            
             // 2. تحليل المشاعر من النص
             const sentiment = analyzeSentiment(transcript);
-
+            
             // 3. توليد نصائح
             const insight = generateInsight(selectedEmotion, sentiment.score);
-
+            
             // 4. حفظ النتائج
             setAnalysisResults({
                 transcript,
                 sentiment: sentiment.emotion,
                 insight
             });
-
+            
             toast.success('تم تسجيل شعورك بنجاح!');
             setShowMatch(true);
         } catch (error) {
@@ -63,7 +63,7 @@ export default function RecordEmotionPage() {
     return (
         <div className="max-w-2xl mx-auto p-4">
             <h1 className="text-3xl font-bold text-center text-purple-800 mb-8">شارك شعورك مع العالم</h1>
-
+            
             {!showMatch ? (
                 <div className="bg-white rounded-2xl shadow-xl p-6">
                     <h2 className="text-xl font-semibold mb-4">كيف تشعر الآن؟</h2>
@@ -79,10 +79,11 @@ export default function RecordEmotionPage() {
                         <button
                             onClick={handleSubmit}
                             disabled={isSubmitting || !selectedEmotion || !audioBlob}
-                            className={`px-8 py-3 rounded-full font-bold text-white ${isSubmitting || !selectedEmotion || !audioBlob
+                            className={`px-8 py-3 rounded-full font-bold text-white ${
+                                isSubmitting || !selectedEmotion || !audioBlob
                                     ? 'bg-gray-400 cursor-not-allowed'
                                     : 'bg-purple-600 hover:bg-purple-700'
-                                } transition-colors`}
+                            } transition-colors`}
                         >
                             {isSubmitting ? 'جاري الإرسال...' : 'شارك شعورك'}
                         </button>
@@ -93,44 +94,45 @@ export default function RecordEmotionPage() {
                     <h2 className="text-2xl font-bold text-center text-purple-800 mb-6">
                         تحليل مشاعرك
                     </h2>
-
+                    
                     <div className="mb-6">
                         <h3 className="font-semibold text-lg mb-2">ما قلته:</h3>
                         <p className="bg-gray-50 p-4 rounded-lg">{analysisResults.transcript}</p>
                     </div>
-
+                    
                     <div className="mb-6">
                         <h3 className="font-semibold text-lg mb-2">تحليل المشاعر:</h3>
-                        <div className={`p-4 rounded-lg ${analysisResults.sentiment === 'positive'
-                                ? 'bg-green-100 text-green-800'
+                        <div className={`p-4 rounded-lg ${
+                            analysisResults.sentiment === 'positive' 
+                                ? 'bg-green-100 text-green-800' 
                                 : analysisResults.sentiment === 'negative'
                                     ? 'bg-red-100 text-red-800'
                                     : 'bg-yellow-100 text-yellow-800'
-                            }`}>
+                        }`}>
                             {analysisResults.sentiment === 'positive' && 'إيجابية 😊'}
                             {analysisResults.sentiment === 'negative' && 'سلبية 😔'}
                             {analysisResults.sentiment === 'neutral' && 'محايدة 😐'}
                         </div>
                     </div>
-
+                    
                     <div className="mb-6">
                         <h3 className="font-semibold text-lg mb-2">نصيحة لك:</h3>
                         <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                             <p>{analysisResults.insight}</p>
                         </div>
                     </div>
-
+                    
                     <h2 className="text-2xl font-bold text-center text-purple-800 mb-6">
                         اقتراح تواصل
                     </h2>
-
+                    
                     <div className="text-center mb-8">
                         <p className="text-gray-600 mb-4">
                             وجدنا شخصًا يشعر بنفس شعورك الآن:
                         </p>
                         <EmotionMatch emotion={selectedEmotion as EmotionType} />
                     </div>
-
+                    
                     <div className="flex justify-center gap-4">
                         <button
                             onClick={() => {

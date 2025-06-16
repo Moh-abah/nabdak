@@ -1,10 +1,16 @@
 "use client"
-import LiveEmotionMap from '@/components/map/LiveEmotionMap';
+
 import EmotionMatch from '@/components/ai/EmotionMatch'; 
 import { EmotionType } from '@/types/emotion';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
-// بيانات تجريبية للخريطة
+
+const LiveEmotionMap = dynamic(
+    () => import('@/components/map/LiveEmotionMap'),
+    { ssr: false, loading: () => <div className="h-[500px] bg-gray-200 rounded-xl animate-pulse"></div> }
+  );
+  
 const mockEmotions = [
     {
         id: '1',
@@ -57,6 +63,7 @@ const emotionConfig: Record<EmotionType, { color: string; icon: string }> = {
 
 export default function MapPage() {
     const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>('joy');
+   
 
     return (
         <div className="max-w-7xl mx-auto p-4">
